@@ -4,13 +4,11 @@ package com.tacazzy.api.models;
 import lombok.*;
 import org.hibernate.Hibernate;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.UUID;
 
 @ToString
 @RequiredArgsConstructor
@@ -24,8 +22,9 @@ public class User implements Serializable {
     private static final long serialVersionUID = -6707608294685089204L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(length = 16)
+    private UUID id;
 
     private String name;
     private String email;
