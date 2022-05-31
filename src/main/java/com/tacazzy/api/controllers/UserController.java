@@ -14,7 +14,7 @@ public class UserController {
 
     @RequestMapping(method = RequestMethod.GET, path = "/users")
     public ResponseEntity<User> hello() {
-        User user = new User(1L, "Maria", "Maria@gmail.com", "14988383021", "20272");
+        User user = new User(null, "Maria", "Maria@gmail.com", "14988383021", "20272");
         return ResponseEntity.status(HttpStatus.OK).body(user);
     }
 }
