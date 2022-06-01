@@ -6,8 +6,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.UUID;
 
-@Repository
 @SuppressWarnings("all")
+@Repository
 public interface UserRepository extends JpaRepository<User, UUID> {
 
 
