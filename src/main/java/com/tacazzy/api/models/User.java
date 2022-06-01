@@ -7,6 +7,8 @@ import org.hibernate.Hibernate;
 import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -26,10 +28,22 @@ public class User implements Serializable {
     @Column(length = 16)
     private UUID id;
 
+    @Column
     private String name;
+
+    @Column
     private String email;
+
+    @Column
     private String phone;
+
+    @Column
     private String password;
+
+    @OneToMany(mappedBy = "client")
+    @ToString.Exclude
+    @Setter(AccessLevel.NONE)
+    private List<Order> orders = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {
