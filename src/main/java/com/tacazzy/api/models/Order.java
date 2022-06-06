@@ -2,6 +2,7 @@ package com.tacazzy.api.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.tacazzy.api.enums.OrderStatus;
 import lombok.*;
 import org.hibernate.Hibernate;
 
@@ -31,6 +32,9 @@ public class Order implements Serializable {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
     @Column
     private Instant instant;
+
+    @Column
+    private Integer orderStatus;
 
     @ManyToOne
     @JoinColumn(name = "client_id")
