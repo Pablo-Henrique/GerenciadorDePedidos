@@ -1,11 +1,5 @@
 package com.tacazzy.api.enums;
 
-import com.tacazzy.api.models.Order;
-
-import java.util.Arrays;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
-
 public enum OrderStatus {
 
     WAITING_PAYMENT(1),
@@ -26,7 +20,7 @@ public enum OrderStatus {
 
     public static OrderStatus valueOf(int code) {
         for (OrderStatus orderStatus : OrderStatus.values()) {
-            if(orderStatus.getCode() == code){
+            if (orderStatus.getCode() == code) {
                 return orderStatus;
             }
         }
