@@ -1,6 +1,7 @@
 package com.tacazzy.api.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.Hibernate;
 
@@ -10,13 +11,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.UUID;
 
-@ToString
-@RequiredArgsConstructor
-@AllArgsConstructor
-@Getter
 @Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity(name = "TB_USER")
 public class User implements Serializable {
 
@@ -24,9 +23,8 @@ public class User implements Serializable {
     private static final long serialVersionUID = -6707608294685089204L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(length = 16)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column
     private String name;
@@ -40,10 +38,9 @@ public class User implements Serializable {
     @Column
     private String password;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "client")
-    @ToString.Exclude
-    @Setter(AccessLevel.NONE)
-    private List<Order> orders = new ArrayList<>();
+    private final List<Order> orders = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {

@@ -7,13 +7,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @RestController
-@CrossOrigin(origins = "*")
 @RequestMapping(path = "/api")
 public class UserController {
 
@@ -26,9 +23,9 @@ public class UserController {
     }
 
     @GetMapping(path = "/user/{id}")
-    public ResponseEntity<?> findById(@PathVariable(value = "id") UUID id) {
+    public ResponseEntity<?> findById(@PathVariable(value = "id") Long id) {
         Optional<User> user = userService.findById(id);
-        if(user.isEmpty()){
+        if (user.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não encontramos esse usuario!");
         }
         return ResponseEntity.status(HttpStatus.OK).body(user.get());
