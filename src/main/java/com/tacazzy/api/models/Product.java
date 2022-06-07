@@ -1,5 +1,6 @@
 package com.tacazzy.api.models;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -13,16 +14,16 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-@RequiredArgsConstructor
 @AllArgsConstructor
+@RequiredArgsConstructor
 @Getter
 @Setter
 @Entity
-@Table(name = "TB_CATEGORY")
-public class Category implements Serializable {
+@Table(name = "TB_PRODUCT")
+public class Product implements Serializable {
 
     @Serial
-    private static final long serialVersionUID = -2932736755887558383L;
+    private static final long serialVersionUID = 7019976080035746179L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,15 +32,24 @@ public class Category implements Serializable {
     @Column
     private String name;
 
+    @Column
+    private String description;
+
+    @Column
+    private Double price;
+
+    @Column
+    private String imgUrl;
+
     @Transient
-    private final Set<Product> products = new HashSet<>();
+    private final Set<Category> categories = new HashSet<>();
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Category category = (Category) o;
-        return id != null && Objects.equals(id, category.id);
+        Product product = (Product) o;
+        return id != null && Objects.equals(id, product.id);
     }
 
     @Override
