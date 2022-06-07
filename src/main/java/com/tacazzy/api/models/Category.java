@@ -1,5 +1,6 @@
 package com.tacazzy.api.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +32,8 @@ public class Category implements Serializable {
     @Column
     private String name;
 
-    @Transient
+    @JsonIgnore
+    @ManyToMany(mappedBy = "categories")
     private final Set<Product> products = new HashSet<>();
 
     @Override

@@ -1,10 +1,7 @@
 package com.tacazzy.api.models;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
@@ -14,8 +11,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-@AllArgsConstructor
-@RequiredArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 @Entity
@@ -41,8 +37,21 @@ public class Product implements Serializable {
     @Column
     private String imgUrl;
 
-    @Transient
-    private final Set<Category> categories = new HashSet<>();
+    public Product(Long id, String name, String description, Double price, String imgUrl) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.imgUrl = imgUrl;
+    }
+
+    @ManyToMany
+    @Setter(AccessLevel.NONE)
+    @JoinTable(name = "TB_PRODUCT_CATEGORY",
+            joinColumns = @JoinColumn(name = "id_product"),
+            inverseJoinColumns = @JoinColumn(name = "id_category"))
+    @ToString.Exclude
+    private Set<Category> categories = new HashSet<>();
 
     @Override
     public boolean equals(Object o) {
