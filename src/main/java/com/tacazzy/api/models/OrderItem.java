@@ -1,12 +1,15 @@
 package com.tacazzy.api.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tacazzy.api.models.pk.OrderItemPk;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
@@ -23,7 +26,7 @@ public class OrderItem implements Serializable {
     private static final long serialVersionUID = 8613687247797688516L;
 
     @EmbeddedId
-    private OrderItemPk id;
+    private OrderItemPk id = new OrderItemPk();
 
     @Column
     private Integer quantity;
@@ -38,6 +41,7 @@ public class OrderItem implements Serializable {
         this.price = price;
     }
 
+    @JsonIgnore
     public Order getOrder() {
         return id.getOrder();
     }
@@ -46,6 +50,7 @@ public class OrderItem implements Serializable {
         id.setOrder(order);
     }
 
+    @JsonIgnore
     public Product getProduct() {
         return id.getProduct();
     }

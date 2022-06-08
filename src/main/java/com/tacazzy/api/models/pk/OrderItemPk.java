@@ -1,5 +1,6 @@
 package com.tacazzy.api.models.pk;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tacazzy.api.models.Order;
 import com.tacazzy.api.models.Product;
 import lombok.Getter;
@@ -9,12 +10,10 @@ import lombok.Setter;
 import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
-@NoArgsConstructor
 @Getter
 @Setter
 @Embeddable
@@ -23,6 +22,7 @@ public class OrderItemPk implements Serializable {
     @Serial
     private static final long serialVersionUID = 3452353509703023925L;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "order_id")
     private Order order;

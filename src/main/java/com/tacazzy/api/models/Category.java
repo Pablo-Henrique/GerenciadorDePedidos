@@ -32,9 +32,13 @@ public class Category implements Serializable {
     @Column
     private String name;
 
+    public Category(String name) {
+        this.name = name;
+    }
+
     @JsonIgnore
     @ManyToMany(mappedBy = "categories")
-    private final Set<Product> products = new HashSet<>();
+    private Set<Product> products = new HashSet<>();
 
     @Override
     public boolean equals(Object o) {

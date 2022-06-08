@@ -10,12 +10,13 @@ import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 import java.util.UUID;
 
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "TB_ORDER")
@@ -36,9 +37,18 @@ public class Order implements Serializable {
     @Column
     private Integer orderStatus;
 
+    public Order(Instant instant, Integer orderStatus, User client) {
+        this.instant = instant;
+        this.orderStatus = orderStatus;
+        this.client = client;
+    }
+
     @ManyToOne
     @JoinColumn(name = "client_id")
     private User client;
+
+    @OneToMany(mappedBy = "id.order")
+    private Set<OrderItem> items = new HashSet<>();
 
     @Override
     public boolean equals(Object o) {

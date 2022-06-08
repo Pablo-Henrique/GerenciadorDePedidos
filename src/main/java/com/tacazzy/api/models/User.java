@@ -38,9 +38,17 @@ public class User implements Serializable {
     @Column
     private String password;
 
+    public User(String name, String email, String phone, String password) {
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        this.password = password;
+    }
+
+    @Setter(AccessLevel.NONE)
     @JsonIgnore
     @OneToMany(mappedBy = "client")
-    private final List<Order> orders = new ArrayList<>();
+    private List<Order> orders = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {

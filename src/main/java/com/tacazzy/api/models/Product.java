@@ -45,12 +45,11 @@ public class Product implements Serializable {
         this.imgUrl = imgUrl;
     }
 
-    @ManyToMany
     @Setter(AccessLevel.NONE)
+    @ManyToMany
     @JoinTable(name = "TB_PRODUCT_CATEGORY",
             joinColumns = @JoinColumn(name = "id_product"),
             inverseJoinColumns = @JoinColumn(name = "id_category"))
-    @ToString.Exclude
     private Set<Category> categories = new HashSet<>();
 
     @Override
