@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,5 +31,12 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não encontramos esse usuario!");
         }
         return ResponseEntity.status(HttpStatus.OK).body(user.get());
+    }
+
+    @PostMapping
+    public ResponseEntity<User> insert(@RequestBody User user) {
+        User u = userService.insert(user);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/user/{id}").buildAndExpand(u.getId()).toUri();
+        return ResponseEntity.created(location).body(user);
     }
 }
