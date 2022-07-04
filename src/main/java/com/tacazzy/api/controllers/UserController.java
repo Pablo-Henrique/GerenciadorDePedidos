@@ -39,4 +39,11 @@ public class UserController {
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/user/{id}").buildAndExpand(u.getId()).toUri();
         return ResponseEntity.created(location).body(user);
     }
+
+    @DeleteMapping(path = "/delete/{id}")
+    public ResponseEntity<Void> delete(@PathVariable(value = "id") Long id) {
+        userService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }
