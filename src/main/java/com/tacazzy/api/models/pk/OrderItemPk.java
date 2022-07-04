@@ -1,5 +1,6 @@
 package com.tacazzy.api.models.pk;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tacazzy.api.models.Order;
 import com.tacazzy.api.models.Product;
 
@@ -24,6 +25,7 @@ public class OrderItemPk implements Serializable {
     @JoinColumn(name = "product_id")
     private Product product;
 
+    @JsonIgnore
     public Order getOrder() {
         return order;
     }
@@ -32,6 +34,7 @@ public class OrderItemPk implements Serializable {
         this.order = order;
     }
 
+    @JsonIgnore
     public Product getProduct() {
         return product;
     }

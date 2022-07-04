@@ -8,5 +8,5 @@ import java.util.UUID;
 
 @SuppressWarnings("all")
 @Repository
-public interface OrderRepository extends JpaRepository<Order, UUID> {
+public interface OrderRepository extends JpaRepository<Order, Long> {
 }

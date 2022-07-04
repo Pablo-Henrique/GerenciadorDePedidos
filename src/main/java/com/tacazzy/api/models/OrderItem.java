@@ -2,15 +2,18 @@ package com.tacazzy.api.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tacazzy.api.models.pk.OrderItemPk;
+import lombok.*;
 import org.hibernate.Hibernate;
 
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
 @Entity
 @Table(name = "TB_ORDER_ITEM")
 public class OrderItem implements Serializable {
@@ -21,14 +24,13 @@ public class OrderItem implements Serializable {
     @EmbeddedId
     private final OrderItemPk id = new OrderItemPk();
 
+    @Column
     private Integer quantity;
+
+    @Column
     private Double price;
 
-    public OrderItem() {
-    }
-
     public OrderItem(Order order, Product product, Integer quantity, Double price) {
-        super();
         id.setOrder(order);
         id.setProduct(product);
         this.quantity = quantity;
@@ -44,28 +46,9 @@ public class OrderItem implements Serializable {
         id.setOrder(order);
     }
 
+    @JsonIgnore
     public Product getProduct() {
         return id.getProduct();
-    }
-
-    public void setProduct(Product product) {
-        id.setProduct(product);
-    }
-
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
     }
 
     public Double getSubTotal() {

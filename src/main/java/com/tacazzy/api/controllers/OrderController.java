@@ -26,7 +26,7 @@ public class OrderController {
     }
 
     @GetMapping(path = "/order/{id}")
-    public ResponseEntity<?> findById(@PathVariable(value = "id") UUID id) {
+    public ResponseEntity<?> findById(@PathVariable(value = "id") Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(orderService.findById(id));
     }
 }

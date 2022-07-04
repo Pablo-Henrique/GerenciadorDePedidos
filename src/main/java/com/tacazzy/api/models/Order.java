@@ -15,7 +15,6 @@ import java.util.Set;
 
 @Getter
 @Setter
-@ToString
 @RequiredArgsConstructor
 @Entity
 @Table(name = "TB_ORDER")
@@ -38,15 +37,14 @@ public class Order implements Serializable {
     @JoinColumn(name = "client_id")
     private User client;
 
+    @Setter(AccessLevel.NONE)
     @OneToMany(mappedBy = "id.order")
-    @ToString.Exclude
-    private final Set<OrderItem> items = new HashSet<>();
+    private Set<OrderItem> items = new HashSet<>();
 
     @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
     private Payment payment;
 
     public Order(Instant moment, OrderStatus orderStatus, User client) {
-        super();
         this.moment = moment;
         setOrderStatus(orderStatus);
         this.client = client;

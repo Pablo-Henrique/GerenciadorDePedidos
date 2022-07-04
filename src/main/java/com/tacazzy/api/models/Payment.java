@@ -1,5 +1,6 @@
 package com.tacazzy.api.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.Hibernate;
 
@@ -28,6 +29,7 @@ public class Payment implements Serializable {
     @Column(updatable = false, nullable = false)
     private Instant moment;
 
+    @JsonIgnore
     @OneToOne
     @MapsId
     private Order order;
