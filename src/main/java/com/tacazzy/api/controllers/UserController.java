@@ -1,5 +1,6 @@
 package com.tacazzy.api.controllers;
 
+import com.tacazzy.api.exceptions.ResourceNotFoundException;
 import com.tacazzy.api.models.User;
 import com.tacazzy.api.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,12 +27,9 @@ public class UserController {
     }
 
     @GetMapping(path = "/user/{id}")
-    public ResponseEntity<?> findById(@PathVariable(value = "id") Long id) {
-        Optional<User> user = userService.findById(id);
-        if (user.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não encontramos esse usuario!");
-        }
-        return ResponseEntity.status(HttpStatus.OK).body(user.get());
+    public ResponseEntity<User> findById(@PathVariable(value = "id") Long id) {
+        User user = userService.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
+        return ResponseEntity.ok().body(user);
     }
 
     @PostMapping
@@ -52,7 +50,7 @@ public class UserController {
     @PutMapping(path = "/update/{id}")
     public ResponseEntity<User> update(@PathVariable(value = "id") Long id, @RequestBody User newUser) {
         if (userService.findById(id).isEmpty()) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.notFound().build();
         }
         User entity = userService.update(id, newUser);
         return ResponseEntity.ok().body(entity);
