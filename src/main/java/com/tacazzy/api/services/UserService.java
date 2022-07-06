@@ -2,6 +2,7 @@ package com.tacazzy.api.services;
 
 import com.tacazzy.api.models.User;
 import com.tacazzy.api.repositories.UserRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +29,12 @@ public class UserService {
 
     public void delete(Long id) {
         userRepository.deleteById(id);
+    }
+
+    public User update(Long id, User newUser) {
+        User entity = userRepository.getReferenceById(id);
+        BeanUtils.copyProperties(newUser, entity, "id");
+        return userRepository.save(entity);
     }
 
 }

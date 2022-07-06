@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.transaction.Transactional;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
@@ -40,10 +41,21 @@ public class UserController {
         return ResponseEntity.created(location).body(user);
     }
 
+    @Transactional
     @DeleteMapping(path = "/delete/{id}")
     public ResponseEntity<Void> delete(@PathVariable(value = "id") Long id) {
         userService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @Transactional
+    @PutMapping(path = "/update/{id}")
+    public ResponseEntity<User> update(@PathVariable(value = "id") Long id, @RequestBody User newUser) {
+        if (userService.findById(id).isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
+        User entity = userService.update(id, newUser);
+        return ResponseEntity.ok().body(entity);
     }
 
 }
