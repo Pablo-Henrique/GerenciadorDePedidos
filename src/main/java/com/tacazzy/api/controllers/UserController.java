@@ -1,6 +1,6 @@
 package com.tacazzy.api.controllers;
 
-import com.tacazzy.api.exceptions.ResourceNotFoundException;
+import com.tacazzy.api.exceptions.ex.ResourceNotFoundException;
 import com.tacazzy.api.models.User;
 import com.tacazzy.api.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.transaction.Transactional;
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/api")
@@ -42,7 +41,8 @@ public class UserController {
     @Transactional
     @DeleteMapping(path = "/delete/{id}")
     public ResponseEntity<Void> delete(@PathVariable(value = "id") Long id) {
-        userService.delete(id);
+        User user = userService.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
+        userService.delete(user);
         return ResponseEntity.noContent().build();
     }
 
