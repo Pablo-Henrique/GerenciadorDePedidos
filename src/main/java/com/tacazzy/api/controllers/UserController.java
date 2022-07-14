@@ -42,16 +42,14 @@ public class UserController {
     @DeleteMapping(path = "/delete/{id}")
     public ResponseEntity<Void> delete(@PathVariable(value = "id") Long id) {
         User user = userService.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
-        userService.delete(user);
+        userService.deleteById(user.getId());
         return ResponseEntity.noContent().build();
     }
 
     @Transactional
     @PutMapping(path = "/update/{id}")
     public ResponseEntity<User> update(@PathVariable(value = "id") Long id, @RequestBody User newUser) {
-        if (userService.findById(id).isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
+        User user = userService.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
         User entity = userService.update(id, newUser);
         return ResponseEntity.ok().body(entity);
     }

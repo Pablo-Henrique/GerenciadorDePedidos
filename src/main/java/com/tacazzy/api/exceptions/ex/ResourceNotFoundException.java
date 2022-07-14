@@ -1,4 +1,4 @@
-package com.tacazzy.api.exceptions;
+package com.tacazzy.api.exceptions.ex;
 
 import java.io.Serial;
 
